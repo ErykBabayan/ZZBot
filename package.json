@@ -1,0 +1,25 @@
+{
+  "name": "zzbot",
+  "version": "1.0.0",
+  "description": "Custom Discord bot for greatest IT server ever made",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node build/index.js",
+    "dev": "concurrently \"tsc -w\" \"nodemon build/index.js\" "
+  },
+  "author": "Eryk Babayan",
+  "license": "ISC",
+  "engines": {
+    "node": ">= 16.9.0"
+  },
+  "devDependencies": {
+    "concurrently": "^7.3.0",
+    "dotenv": "^16.0.1",
+    "nodemon": "^2.0.19",
+    "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "discord.js": "^14.3.0"
+  }
+}
