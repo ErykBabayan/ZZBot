@@ -1,4 +1,4 @@
-import config from "./config"
+const config = require("./config.ts")
 const { Client, GatewayIntentBits } = require('discord.js');
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
@@ -24,3 +24,4 @@ client.on('interactionCreate', async (interaction: {
 });
 
 client.login(config.DISCORD_TOKEN);
+export{} // TS doesn't allow multiple config imports throughout project files with declaring config as constant.
