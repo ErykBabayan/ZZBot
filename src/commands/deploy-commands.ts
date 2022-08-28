@@ -1,12 +1,7 @@
-<<<<<<< Updated upstream
-const { SlashCommandBuilder, Routes } = require('discord.js');
-const { REST } = require('@discordjs/rest');
-const config = require("../config.ts")
-=======
+
 import { SlashCommandBuilder, Routes } from "discord.js";
 import {REST} from "@discordjs/rest"
 import config from "../config"
->>>>>>> Stashed changes
 
 const commands = [
 	new SlashCommandBuilder().setName('ping').setDescription('Replies with pong!'),

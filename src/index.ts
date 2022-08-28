@@ -1,10 +1,5 @@
-<<<<<<< Updated upstream
-const config = require("./config.ts")
-const { Client, GatewayIntentBits } = require('discord.js');
-=======
 import config from "./config"
 import { Client, GatewayIntentBits }  from 'discord.js';
->>>>>>> Stashed changes
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
@@ -29,4 +24,3 @@ client.on('interactionCreate', async (interaction: {
 });
 
 client.login(config.DISCORD_TOKEN);
-export{} // TS doesn't allow multiple config imports throughout project files with declaring config as constant.

@@ -13,6 +13,4 @@ const config = {
     GUILD_ID
 }
 
-exports.DISCORD_TOKEN = DISCORD_TOKEN
-exports.CLIENT_ID = CLIENT_ID
-exports.GUILD_ID = GUILD_ID
+export default config
