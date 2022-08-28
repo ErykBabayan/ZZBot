@@ -1,5 +1,10 @@
+<<<<<<< Updated upstream
 const config = require("./config.ts")
 const { Client, GatewayIntentBits } = require('discord.js');
+=======
+import config from "./config"
+import { Client, GatewayIntentBits }  from 'discord.js';
+>>>>>>> Stashed changes
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
@@ -17,7 +22,7 @@ client.on('interactionCreate', async (interaction: {
 	if (commandName === 'ping') {
 		await interaction.reply('Pong!');
 	} else if (commandName === 'server') {
-		await interaction.reply(`Server members count: ${interaction?.guild.id}`);
+		await interaction.reply(`Server ID: ${interaction.guild.id}`);
 	} else if (commandName === 'user') {
 		await interaction.reply(`User ${interaction.user.tag}`);
 	}
