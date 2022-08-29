@@ -1,10 +1,11 @@
 import config from "./config"
 import { Client, GatewayIntentBits }  from 'discord.js';
-
+import totalMemberCounter from "./counters/total-member-counter"
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
-client.once('ready', () => {
-	console.log('Ready!');
+client.on('ready', () => {
+	console.log('ZŻ Bot is online!');
+	totalMemberCounter(client)
 });
 
 client.on('interactionCreate', async (interaction: {
@@ -19,7 +20,7 @@ client.on('interactionCreate', async (interaction: {
 	} else if (commandName === 'server') {
 		await interaction.reply(`Server ID: ${interaction.guild.id}`);
 	} else if (commandName === 'user') {
-		await interaction.reply(`User ${interaction.user.tag}`);
+		await interaction.reply(`Member Count ${interaction.guild.memberCount}`);
 	}
 });
 
