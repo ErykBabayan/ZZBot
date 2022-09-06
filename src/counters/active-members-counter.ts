@@ -6,9 +6,6 @@ function activeMembersCounter(client: Client<boolean>): void {
 	if (guild === undefined) {
 		throw new TypeError("The object must not be undefined, aborting");
 	}
-	const initialOnlineMembers = guild.members.cache.filter((member) => member.presence?.status === "online" && !member.user.bot).size;
-	console.log(initialOnlineMembers);
-
+	const onlineMembers = guild.members.cache.filter((member) => member.presence?.status === "online").size;
 }
-
 export default activeMembersCounter;

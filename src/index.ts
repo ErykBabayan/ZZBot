@@ -1,23 +1,34 @@
 import config from "./config";
 import { Client, GatewayIntentBits } from "discord.js";
 import totalMemberCounter from "./counters/total-member-counter";
+import activeMembersCounter from "./counters/active-members-counter";
 const client = new Client({
-	intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMembers],
+	intents: [
+		GatewayIntentBits.Guilds,
+		GatewayIntentBits.GuildMessages,
+		GatewayIntentBits.MessageContent,
+		GatewayIntentBits.GuildMembers,
+		GatewayIntentBits.GuildPresences,
+	],
 });
 
 client.on("ready", () => {
 	console.log("ZŻ Bot is online!");
 	totalMemberCounter(client);
+	activeMembersCounter(client);
 });
 
-client.on('ready', () => {
-	console.log('ZŻ Bot is online!');
-	totalMemberCounter(client)
+client.on("guildMember", () => {
+	console.log("memberADDED");
+});
+
+client.on("guildMemberRemove", () => {
+	console.log("memberRemoved");
 });
 
 client.on(
 	"interactionCreate",
-	async (interaction:{
+	async (interaction: {
 		[x: string]: any;
 		isChatInputCommand?: any;
 		reply?: any;
