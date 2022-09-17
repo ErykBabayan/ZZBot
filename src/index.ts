@@ -14,16 +14,8 @@ const client = new Client({
 
 client.on("ready", () => {
 	console.log("ZŻ Bot is online!");
-	totalMemberCounter(client);
-	activeMembersCounter(client);
-});
-
-client.on("guildMember", () => {
-	console.log("memberADDED");
-});
-
-client.on("guildMemberRemove", () => {
-	console.log("memberRemoved");
+	//totalMemberCounter(client);
+	//activeMembersCounter(client);
 });
 
 client.on(
@@ -38,8 +30,9 @@ client.on(
 
 		const { commandName } = interaction;
 
-		if (commandName === "ping") {
-			await interaction.reply("pong");
+		if (commandName === "setup") {
+			interaction.reply("Successfully started setup");
+			await totalMemberCounter(client);
 		} else if (commandName === "server") {
 			await interaction.reply(`Server ID: ${interaction.guild.id}`);
 		} else if (commandName === "user") {

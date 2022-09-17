@@ -11,7 +11,7 @@ const totalMemberCounter = async (client: Client<boolean>): Promise<void> => {
 
 		channel?.setName(`Total Members: ${memberCount}`);
 		console.log("updating memberCount: ", memberCount);
-	}, 300000); // TODO: change time to every 4-6
+	}, 300000);
 };
 
 export default totalMemberCounter;
