@@ -7,7 +7,7 @@
     "build": "tsc",
     "start": "node build/index.js",
     "dev": "concurrently \"tsc -w\" \"nodemon build/index.js\" ",
-    "deploy:commands": "tsc && node build/commands/deploy-commands.js"
+    "deploy:commands": "tsc && node build/deploy-commands.js"
   },
   "author": "Eryk Babayan",
   "license": "ISC",
