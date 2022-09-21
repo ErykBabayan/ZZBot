@@ -1,9 +1,7 @@
 import config from "./config";
+import { Client, GatewayIntentBits, Collection } from "discord.js";
 const fs = require("node:fs");
 const path: any = require("node:path");
-import { Client, GatewayIntentBits, Collection } from "discord.js";
-import totalMemberCounter from "./counters/total-member-counter";
-import activeMembersCounter from "./counters/active-members-counter";
 
 const client = new Client({
 	intents: [
@@ -27,41 +25,18 @@ for (const file of commandFiles) {
 
 client.on("ready", () => {
 	console.log("ZŻ Bot is online!");
-	//totalMemberCounter(client);
-	//activeMembersCounter(client);
 });
 
-client.on(
-	"interactionCreate",
-	async (interaction: {
-		[x: string]: any;
-		isChatInputCommand?: any;
-		reply?: any;
-		commandName?: any; //TODO Fix later
-	}) => {
-		if (!interaction.isChatInputCommand()) return;
-
-		const command = interaction.client.commands.get(interaction.commandName);
-		if (!command) return;
-
-		try {
-			await command.execute(interaction);
-		} catch (error) {
-			console.error(error);
-			await interaction.reply({ content: "There was an error while executing this command!", ephemeral: true });
-		}
+client.on("interactionCreate", async (interaction: any) => {
+	if (!interaction.isChatInputCommand()) return;
+	const command = interaction.client.commands.get(interaction.commandName);
+	if (!command) return;
+	try {
+		await command.execute(interaction, client);
+	} catch (error) {
+		console.error(error);
+		await interaction.reply({ content: "There was an error while executing this command!", ephemeral: true });
 	}
-);
+});
 
 client.login(config.DISCORD_TOKEN);
-
-// 		/*  Executing command via if else approach  */
-// const { commandName } = interaction;
-// if (commandName === "setup") {
-// 	interaction.reply("Successfully started setup");
-// 	await totalMemberCounter(client);
-// } else if (commandName === "server") {
-// 	await interaction.reply(`Server ID: ${interaction.guild.id}`);
-// } else if (commandName === "user") {
-// 	await interaction.reply(`Member Count ${interaction.guild.memberCount}`);
-// }
