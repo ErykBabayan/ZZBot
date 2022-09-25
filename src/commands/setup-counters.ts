@@ -7,6 +7,6 @@ module.exports = {
 	async execute(interaction: any, client: Client<boolean>) {
 		activeMembersCounter(client);
 		totalMemberCounter(client);
-		await interaction.reply("Member counters created.");
+		await interaction.reply("Member counters started.");
 	},
 };
