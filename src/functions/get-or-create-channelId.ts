@@ -1,14 +1,14 @@
 import { Guild } from "discord.js";
 import createChannel from "./create-channel";
 
-export default async function getOrCreateChannelId(guild: Guild, channelName: string) {
+export default async function getOrCreateChannelId(guild: Guild | undefined, channelName: string, channelType:number) {
+	if (guild === undefined) throw new TypeError("The guild must not be undefined, aborting");
 	if (guild.channels.cache.find((channel) => channel.name === channelName)) {
 		return guild.channels.cache.find((channel) => channel.name === channelName)?.id;
 	}
-	const channel = await createChannel(channelName, 2, guild);
+	const channel = await createChannel(channelName, channelType, guild);
 	if (channel) {
-		console.log(channel.id);
-		return channel.id
+		return channel.id;
 	}
 	return null;
 }
