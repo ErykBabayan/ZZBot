@@ -14,6 +14,6 @@ const activeMembersCounter = async (guild: Guild): Promise<void> => {
 			.filter((member) => member.presence?.status !== "offline" && !member.user.bot)
 			.size.toLocaleString();
 		channel.setName(`Active Members: ${onlineMembers}`);
-	}, 50000);
+	}, 60000);
 };
 export default activeMembersCounter;
