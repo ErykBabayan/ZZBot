@@ -7,22 +7,22 @@ const totalMemberCounter = async (guild: Guild): Promise<void> => {
 	const channelId: Promise<any> = getOrCreateChannelId(guild, channelName, 2);
 	const logChannelId: Promise<any> = getOrCreateChannelId(guild, "logi-zż", 0);
 
-	const logChannel = guild.channels.cache.get(await logChannelId);
+	const logChannel: GuildBasedChannel | undefined = guild.channels.cache.get(await logChannelId);
 
 	setInterval(async () => {
 		const channel: GuildBasedChannel | undefined = guild.channels.cache.get(await channelId);
 		if (channel === undefined) throw new TypeError("The object must not be undefined, aborting");
 
 		const memberCount: number = guild.memberCount - botMembers;
-		const memberDiff = calculateMemberDiff(channel, memberCount);
-		
+		const memberDiff: number = calculateMemberDiff(channel, memberCount);
+
 		channelName = `Total Members: ${memberCount}`;
 		channel.setName(channelName);
 		(logChannel as TextChannel).send({ embeds: [embedLog(await channelId, channelName, memberDiff)] } as
 			| string
 			| MessagePayload
 			| MessageOptions);
-	}, 60000);
+	}, 3600000);
 };
 
 const embedLog = (channelId: Promise<any>, channelName: string, memberDiff: number) => {

@@ -1,4 +1,4 @@
-import { Guild } from "discord.js";
+import { Guild, GuildBasedChannel } from "discord.js";
 import getOrCreateChannelId from "../functions/get-or-create-channelId";
 
 const activeMembersCounter = async (guild: Guild): Promise<void> => {
@@ -8,7 +8,7 @@ const activeMembersCounter = async (guild: Guild): Promise<void> => {
 	const channelId: Promise<any> = getOrCreateChannelId(guild, channelName, 2);
 
 	setInterval(async () => {
-		const channel = guild.channels.cache.get(await channelId);
+		const channel: GuildBasedChannel | undefined = guild.channels.cache.get(await channelId);
 		if (channel === undefined) throw new TypeError("The object must not be undefined, aborting");
 		const onlineMembers: string = guild.members.cache
 			.filter((member) => member.presence?.status !== "offline" && !member.user.bot)
