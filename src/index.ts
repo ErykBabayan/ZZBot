@@ -1,7 +1,7 @@
 import config from "./config";
 import { Client, GatewayIntentBits, Collection } from "discord.js";
-const fs = require("node:fs");
-const path: any = require("node:path");
+import fs from "node:fs";
+import path from "node:path"
 
 const client = new Client({
 	intents: [
