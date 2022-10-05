@@ -1,11 +1,12 @@
 import { Guild, TextChannel, EmbedBuilder, MessageOptions, MessagePayload, GuildBasedChannel } from "discord.js";
 import getOrCreateChannelId from "../functions/get-or-create-channelId";
+import constants from "../../constants";
 
 const totalMemberCounter = async (guild: Guild): Promise<void> => {
 	const botMembers: number = guild.members.cache.filter((member) => member.user.bot).size;
 	let channelName: string = `Total Members: ${guild.memberCount - botMembers}`;
-	const channelId: Promise<any> = getOrCreateChannelId(guild, channelName, 2);
-	const logChannelId: Promise<any> = getOrCreateChannelId(guild, "logi-zż", 0);
+	const channelId: Promise<any> = getOrCreateChannelId(guild, channelName, constants.VOICE_CHANNEL);
+	const logChannelId: Promise<any> = getOrCreateChannelId(guild, "logi-zż", constants.TEXT_CHANNEL);
 
 	const logChannel: GuildBasedChannel | undefined = guild.channels.cache.get(await logChannelId);
 
@@ -22,7 +23,7 @@ const totalMemberCounter = async (guild: Guild): Promise<void> => {
 			| string
 			| MessagePayload
 			| MessageOptions);
-	}, 3600000);
+	}, constants.TOTAL_MEMBERS_REFRESH_INTERVAL);
 };
 
 const embedLog = (channelId: Promise<any>, channelName: string, memberDiff: number) => {
