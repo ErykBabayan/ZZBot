@@ -6,9 +6,6 @@ const activeMembersCounter = async (guild: Guild): Promise<void> => {
 	const channelName: string = `Active Members: ${
 		guild.members.cache.filter((member: GuildMember) => member.presence?.status !== "offline" && !member.user.bot).size
 	}`;
-	if (getOrCreateChannelId(guild, channelName, constants.VOICE_CHANNEL) === null || undefined) {
-		throw new TypeError("The object must not be undefined, aborting");
-	}
 	const channelId: Promise<any> = getOrCreateChannelId(guild, channelName, constants.VOICE_CHANNEL);
 
 	setInterval(async () => {
