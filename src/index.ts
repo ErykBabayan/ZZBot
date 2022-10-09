@@ -1,7 +1,7 @@
 import config from "./config";
 import { Client, GatewayIntentBits, Collection } from "discord.js";
 import fs from "node:fs";
-import path from "node:path"
+import path from "node:path";
 
 const client = new Client({
 	intents: [
@@ -26,16 +26,23 @@ for (const file of commandFiles) {
 client.on("ready", () => {
 	console.log("ZŻ Bot is online!");
 });
-
+let setupOnce = false; //TODO: REFACTOR INFO BETTER CODE QUALITY SOLUTION
 client.on("interactionCreate", async (interaction: any) => {
 	if (!interaction.isChatInputCommand()) return;
+
 	const command = interaction.client.commands.get(interaction.commandName);
-	if (!command) return;
-	try {
-		await command.execute(interaction, client);
-	} catch (error) {
-		console.error(error);
-		await interaction.reply({ content: "There was an error while executing this command!", ephemeral: true });
+	if (!setupOnce) {
+		if (!command) return;
+		try {
+			if (interaction.commandName === "setup") setupOnce = true;
+			console.log(interaction.commandName);
+			await command.execute(interaction, client);
+		} catch (error) {
+			console.error(error);
+			await interaction.reply({ content: "There was an error while executing this command!", ephemeral: true });
+		}
+	} else if (setupOnce) {
+		await interaction.reply({ content: "Setup is already running!", ephemeral: true });
 	}
 });
 
