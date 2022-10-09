@@ -1,8 +1,8 @@
-import { Guild, GuildBasedChannel, GuildMember } from "discord.js";
+import { EmbedBuilder, Guild, GuildBasedChannel, GuildMember, TextChannel } from "discord.js";
 import getOrCreateChannelId from "../functions/get-or-create-channelId";
 import constants from "../../constants";
 
-const activeMembersCounter = async (guild: Guild): Promise<void> => {
+const activeMembersCounter = async (guild: Guild, logChannel: GuildBasedChannel | undefined): Promise<void> => {
 	const channelName: string = `Active Members: ${
 		guild.members.cache.filter((member: GuildMember) => member.presence?.status !== "offline" && !member.user.bot).size
 	}`;

@@ -2,14 +2,11 @@ import { Guild, TextChannel, EmbedBuilder, MessageOptions, MessagePayload, Guild
 import getOrCreateChannelId from "../functions/get-or-create-channelId";
 import constants from "../../constants";
 
-const totalMemberCounter = async (guild: Guild): Promise<void> => {
+const totalMemberCounter = async (guild: Guild, logChannel: GuildBasedChannel | undefined): Promise<void> => {
 	const botMembers: number = guild.members.cache.filter((member) => member.user.bot).size;
 	let channelName: string = `Total Members: ${guild.memberCount - botMembers}`;
 	const channelId: Promise<any> = getOrCreateChannelId(guild, channelName, constants.VOICE_CHANNEL);
-	const logChannelId: Promise<any> = getOrCreateChannelId(guild, "logi-zż", constants.TEXT_CHANNEL);
-
-	const logChannel: GuildBasedChannel | undefined = guild.channels.cache.get(await logChannelId);
-
+	
 	setInterval(async () => {
 		const channel: GuildBasedChannel | undefined = guild.channels.cache.get(await channelId);
 		if (channel === undefined) throw new TypeError("The object must not be undefined, aborting");
