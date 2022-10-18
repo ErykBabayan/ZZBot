@@ -4,7 +4,10 @@ import constants from "../../constants";
 
 const activeMembersCounter = async (guild: Guild, logChannel: GuildBasedChannel | undefined): Promise<void> => {
 	const channelName: string = `Active Members: ${
-		guild.members.cache.filter((member: GuildMember) => member.presence?.status !== "offline" && !member.user.bot).size
+		guild.members.cache.filter(
+			(member) =>
+				(member.presence?.status == "online" || member.presence?.status == "idle" || member.presence?.status == "dnd") && !member.user.bot
+		).size
 	}`;
 	const channelId: Promise<any> = getOrCreateChannelId(guild, channelName, constants.VOICE_CHANNEL);
 
