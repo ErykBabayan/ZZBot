@@ -35,7 +35,6 @@ client.on("interactionCreate", async (interaction: any) => {
 		if (!command) return;
 		try {
 			if (interaction.commandName === "setup") setupOnce = true;
-			console.log(interaction.commandName);
 			await command.execute(interaction, client);
 		} catch (error) {
 			console.error(error);
