@@ -1,5 +1,5 @@
-const ACTIVE_MEMBERS_REFRESH_INTERVAL: number = 6000000; // 10min refresh
-const TOTAL_MEMBERS_REFRESH_INTERVAL: number = 36000000; // 1h refresh
+const ACTIVE_MEMBERS_REFRESH_INTERVAL: number = 10000; // 10min refresh
+const TOTAL_MEMBERS_REFRESH_INTERVAL: number = 10000; // 1h refresh
 const TEXT_CHANNEL: number = 0;
 const VOICE_CHANNEL: number = 2;
 const MODERATOR_ROLE: string = "Moderator";

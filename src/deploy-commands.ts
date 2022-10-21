@@ -3,6 +3,7 @@ import { REST } from "@discordjs/rest";
 import config from "./config";
 import fs from "node:fs";
 import path from "node:path";
+// import GUILD_ID from "./index"; // prod ready only
 
 const commands = [];
 const commandsPath = path.join(__dirname, "commands");
@@ -14,8 +15,8 @@ for (const file of commandFiles) {
 	commands.push(command.data.toJSON());
 }
 
-const rest = new REST({ version: "10" }).setToken(config.DISCORD_TOKEN);
+const rest = new REST({ version: "10" }).setToken(config.TEST_DISCORD_TOKEN);
 
-rest.put(Routes.applicationGuildCommands(config.CLIENT_ID, config.GUILD_ID), { body: commands })
+rest.put(Routes.applicationGuildCommands(config.TEST_CLIENT_ID, config.TEST_GUILD_ID), { body: commands }) // change to GUILD_ID when prod ready
 	.then(() => console.log("Successfully registered application commands."))
 	.catch(console.error);

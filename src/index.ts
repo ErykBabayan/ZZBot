@@ -3,6 +3,7 @@ import { Client, GatewayIntentBits, Collection } from "discord.js";
 import fs from "node:fs";
 import path from "node:path";
 
+let GUILD_ID = "";
 const client = new Client({
 	intents: [
 		GatewayIntentBits.Guilds,
@@ -26,6 +27,13 @@ for (const file of commandFiles) {
 client.on("ready", () => {
 	console.log("ZŻ Bot is online!");
 });
+client.on("guildCreate", (guildData) => {
+	GUILD_ID = guildData.id;
+	console.log(guildData);
+	console.log(GUILD_ID);
+	console.log("discord test bot running");
+});
+
 let setupOnce = false; //TODO: REFACTOR INFO BETTER CODE QUALITY SOLUTION
 client.on("interactionCreate", async (interaction: any) => {
 	if (!interaction.isChatInputCommand()) return;
@@ -46,4 +54,6 @@ client.on("interactionCreate", async (interaction: any) => {
 	}
 });
 
-client.login(config.DISCORD_TOKEN);
+client.login(config.TEST_DISCORD_TOKEN);
+
+//export default GUILD_ID; // prod ready only
