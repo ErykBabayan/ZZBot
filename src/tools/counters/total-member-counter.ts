@@ -5,8 +5,13 @@ import constants from "../../constants";
 const totalMemberCounter = async (guild: Guild, logChannel: GuildBasedChannel | undefined): Promise<void> => {
 	const botMembers: number = guild.members.cache.filter((member) => member.user.bot).size;
 	let channelName: string = `Total Members: ${guild.memberCount - botMembers}`;
-	const channelId: Promise<any> = getOrCreateChannelId(guild, channelName, constants.VOICE_CHANNEL);
-	
+	let channelId: any = "";
+	if (Boolean(guild.channels.cache.get("1034478899247186022"))) {
+		channelId = "1034478899247186022";
+	} else {
+		channelId = getOrCreateChannelId(guild, channelName, constants.VOICE_CHANNEL);
+	}
+
 	setInterval(async () => {
 		const channel: GuildBasedChannel | undefined = guild.channels.cache.get(await channelId);
 		if (channel === undefined) throw new TypeError("The object must not be undefined, aborting");
