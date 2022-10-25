@@ -21,7 +21,6 @@ const totalMemberCounter = async (guild: Guild, logChannel: GuildBasedChannel | 
 
 		channelName = `👤| Wszyscy: ${memberCount}`;
 		channel.setName(channelName);
-		console.log(`Total Members updated: ${memberCount}`);
 		(logChannel as TextChannel).send({ embeds: [embedLog(await channelId, channelName, memberDiff)] } as
 			| string
 			| MessagePayload

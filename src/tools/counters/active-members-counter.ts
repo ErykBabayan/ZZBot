@@ -24,7 +24,6 @@ const activeMembersCounter = async (guild: Guild, logChannel: GuildBasedChannel 
 				(member.presence?.status == "online" || member.presence?.status == "idle" || member.presence?.status == "dnd") && !member.user.bot
 		).size;
 		channel.setName(`🟢| Aktywni: ${onlineMembers}`);
-		console.log(`Active Members updated: ${onlineMembers}`);
 	}, constants.ACTIVE_MEMBERS_REFRESH_INTERVAL);
 };
 export default activeMembersCounter;
