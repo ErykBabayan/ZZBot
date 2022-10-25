@@ -3,13 +3,18 @@ import getOrCreateChannelId from "../functions/get-or-create-channelId";
 import constants from "../../constants";
 
 const activeMembersCounter = async (guild: Guild, logChannel: GuildBasedChannel | undefined): Promise<void> => {
-	const channelName: string = `Active Members: ${
+	const channelName: string = `🟢| Aktywni: ${
 		guild.members.cache.filter(
 			(member) =>
 				(member.presence?.status == "online" || member.presence?.status == "idle" || member.presence?.status == "dnd") && !member.user.bot
 		).size
 	}`;
-	const channelId: Promise<any> | string = getOrCreateChannelId(guild, channelName, constants.VOICE_CHANNEL);
+	let channelId: any = "";
+	if (Boolean(guild.channels.cache.get("1032036972509802576"))) {
+		channelId = "1032036972509802576";
+	} else {
+		channelId = getOrCreateChannelId(guild, channelName, constants.VOICE_CHANNEL);
+	}
 
 	setInterval(async () => {
 		const channel: GuildBasedChannel | undefined = guild.channels.cache.get(await channelId);
@@ -18,7 +23,7 @@ const activeMembersCounter = async (guild: Guild, logChannel: GuildBasedChannel 
 			(member) =>
 				(member.presence?.status == "online" || member.presence?.status == "idle" || member.presence?.status == "dnd") && !member.user.bot
 		).size;
-		channel.setName(`Active Members: ${onlineMembers}`);
+		channel.setName(`🟢| Aktywni: ${onlineMembers}`);
 		console.log(`Active Members updated: ${onlineMembers}`);
 	}, constants.ACTIVE_MEMBERS_REFRESH_INTERVAL);
 };

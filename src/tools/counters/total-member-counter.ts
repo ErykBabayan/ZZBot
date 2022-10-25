@@ -4,9 +4,14 @@ import constants from "../../constants";
 
 const totalMemberCounter = async (guild: Guild, logChannel: GuildBasedChannel | undefined): Promise<void> => {
 	const botMembers: number = guild.members.cache.filter((member) => member.user.bot).size;
-	let channelName: string = `Total Members: ${guild.memberCount - botMembers}`;
-	const channelId: Promise<any> = getOrCreateChannelId(guild, channelName, constants.VOICE_CHANNEL);
-	
+	let channelName: string = `👤| Wszyscy: ${guild.memberCount - botMembers}`;
+	let channelId: any = "";
+	if (Boolean(guild.channels.cache.get("1032036974091051088"))) {
+		channelId = "1032036974091051088";
+	} else {
+		channelId = getOrCreateChannelId(guild, channelName, constants.VOICE_CHANNEL);
+	}
+
 	setInterval(async () => {
 		const channel: GuildBasedChannel | undefined = guild.channels.cache.get(await channelId);
 		if (channel === undefined) throw new TypeError("The object must not be undefined, aborting");
@@ -14,8 +19,9 @@ const totalMemberCounter = async (guild: Guild, logChannel: GuildBasedChannel | 
 		const memberCount: number = guild.memberCount - botMembers;
 		const memberDiff: number = calculateMemberDiff(channel, memberCount);
 
-		channelName = `Total Members: ${memberCount}`;
+		channelName = `👤| Wszyscy: ${memberCount}`;
 		channel.setName(channelName);
+		console.log(`Total Members updated: ${memberCount}`);
 		(logChannel as TextChannel).send({ embeds: [embedLog(await channelId, channelName, memberDiff)] } as
 			| string
 			| MessagePayload
